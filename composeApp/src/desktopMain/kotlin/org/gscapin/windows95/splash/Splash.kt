@@ -3,6 +3,7 @@ package org.gscapin.windows95.splash
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -16,6 +17,12 @@ fun SplashScreen(onSoundFinished: () -> Unit) {
 
     val soundManager = remember { SoundManager() }
 
+    LaunchedEffect(Unit){
+        soundManager.playSplashSound {
+            onSoundFinished()
+        }
+    }
+
 
     Image(
         modifier = Modifier.fillMaxSize(),
@@ -23,8 +30,4 @@ fun SplashScreen(onSoundFinished: () -> Unit) {
         contentDescription = "Windows 95 Splash",
         contentScale = ContentScale.Crop
     )
-
-    soundManager.playSplashSound {
-        onSoundFinished()
-    }
 }
